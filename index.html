@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102a43">
+  <title>TechSolutions SRL | Portal empresarial</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <main id="login-view" class="login-shell">
+    <section class="login-card">
+      <div class="brand-mark">TS</div>
+      <p class="eyebrow">PORTAL EMPRESARIAL</p>
+      <h1>TechSolutions <span>SRL</span></h1>
+      <p class="muted">Gestiona la información de tu empresa desde un solo lugar.</p>
+      <form id="login-form">
+        <label for="email">Correo electrónico</label>
+        <input id="email" type="email" placeholder="usuario@empresa.com" autocomplete="username" required>
+        <label for="password">Contraseña</label>
+        <input id="password" type="password" placeholder="Tu contraseña" autocomplete="current-password" required>
+        <button class="primary-btn full" type="submit">Iniciar sesión</button>
+        <p id="login-message" class="form-message" role="status"></p>
+      </form>
+      <p class="login-foot">Acceso exclusivo para personal autorizado.</p>
+    </section>
+    <div class="login-aside">
+      <div class="aside-content">
+        <span class="pill">TECNOLOGÍA · PERSONAS · SERVICIOS</span>
+        <h2>Una empresa conectada, desde cualquier lugar.</h2>
+        <p>Plataforma de demostración para la administración de empleados y consulta de indicadores empresariales mediante servicios en la nube.</p>
+      </div>
+      <div class="aside-footer">Infraestructura alojada en la nube</div>
+    </div>
+  </main>
+
+  <div id="app-view" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="sidebar-brand"><div class="brand-mark small">TS</div><div><strong>TechSolutions</strong><small>SRL · Portal</small></div></div>
+      <nav>
+        <button class="nav-link active" data-page="dashboard"><span>▦</span> Resumen</button>
+        <button class="nav-link" data-page="employees"><span>♙</span> Empleados</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="cloud-status"><span class="status-dot"></span><div><strong>Servicios cloud</strong><small>Conexión activa</small></div></div>
+        <button id="logout-btn" class="logout-btn">↪ Cerrar sesión</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div><p class="eyebrow">ÁREA DE TRABAJO</p><h1 id="page-title">Resumen</h1></div>
+        <div class="user-chip"><div class="avatar" id="user-avatar">U</div><div><strong id="user-email">Usuario</strong><small>Usuario autenticado</small></div></div>
+      </header>
+
+      <section id="dashboard-page" class="page">
+        <div class="welcome-banner">
+          <div><span class="pill light">PANEL DE CONTROL</span><h2>Bienvenido a TechSolutions</h2><p>Consulta el estado general de la información empresarial.</p></div>
+          <div class="welcome-art">TS</div>
+        </div>
+        <div class="section-heading"><div><h2>Indicadores generales</h2><p>Datos registrados en la base de datos cloud.</p></div><button id="refresh-btn" class="secondary-btn">↻ Actualizar</button></div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-icon blue">♙</div><p>Total de empleados</p><strong id="employee-count">—</strong><small>Registros disponibles</small></article>
+          <article class="stat-card"><div class="stat-icon green">☁</div><p>Almacenamiento</p><strong>Cloud</strong><small>Base de datos Supabase</small></article>
+          <article class="stat-card"><div class="stat-icon violet">✓</div><p>Estado del sistema</p><strong class="healthy">Operativo</strong><small>Conexión autenticada</small></article>
+        </div>
+        <article class="content-card">
+          <div class="card-heading"><div><h3>Actividad del portal</h3><p>Información del entorno empresarial</p></div><span class="tag">En línea</span></div>
+          <div class="info-row"><div class="info-symbol">☁</div><div><strong>Infraestructura en la nube</strong><p>La aplicación web se publica mediante GitHub Pages y utiliza Supabase para autenticación y almacenamiento de datos.</p></div></div>
+          <div class="info-row"><div class="info-symbol">♙</div><div><strong>Administración de empleados</strong><p>Los usuarios autorizados pueden consultar, registrar y eliminar empleados desde el módulo correspondiente.</p></div></div>
+        </article>
+      </section>
+
+      <section id="employees-page" class="page hidden">
+        <div class="section-heading"><div><h2>Directorio de empleados</h2><p>Administra los registros del personal de la empresa.</p></div><button id="add-employee-btn" class="primary-btn">＋ Nuevo empleado</button></div>
+        <div class="content-card">
+          <div class="table-toolbar"><div><strong>Personal registrado</strong><small id="employee-subtitle">Directorio empresarial</small></div><input id="employee-search" type="search" placeholder="Buscar empleado..."></div>
+          <div class="table-wrap"><table><thead><tr><th>Nombre</th><th>Departamento</th><th>Correo</th><th>Fecha de registro</th><th>Acción</th></tr></thead><tbody id="employee-table"><tr><td colspan="5" class="empty-state">Cargando registros...</td></tr></tbody></table></div>
+          <p id="employee-message" class="form-message" role="status"></p>
+        </div>
+      </section>
+      <footer class="main-footer">© 2026 TechSolutions SRL <span>Proyecto académico · Infraestructura Tecnológica</span></footer>
+    </main>
+  </div>
+
+  <dialog id="employee-dialog" class="modal">
+    <form id="employee-form" method="dialog">
+      <div class="modal-heading"><div><p class="eyebrow">DIRECTORIO</p><h2>Registrar empleado</h2></div><button type="button" id="close-dialog" class="icon-btn" aria-label="Cerrar">×</button></div>
+      <label for="employee-name">Nombre completo</label><input id="employee-name" maxlength="100" required placeholder="Ej. Ana Martínez">
+      <label for="employee-department">Departamento</label>
+      <select id="employee-department" required><option value="">Selecciona un departamento</option><option>Administración</option><option>Desarrollo</option><option>Soporte técnico</option><option>Recursos Humanos</option><option>Ventas</option></select>
+      <label for="employee-email">Correo electrónico</label><input id="employee-email" type="email" maxlength="150" required placeholder="ana@techsolutions.com">
+      <p id="dialog-message" class="form-message" role="status"></p>
+      <div class="modal-actions"><button type="button" id="cancel-dialog" class="secondary-btn">Cancelar</button><button type="submit" class="primary-btn">Guardar empleado</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status"></div>
+</body>
+</html>
