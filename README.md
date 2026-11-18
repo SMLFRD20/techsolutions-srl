@@ -2,9 +2,7 @@
 
 ## Implementación de Cloud Computing en un ambiente empresarial.
 
-Sergio Lugo | 24-0951
-Aarón Beltre | 24-1033
-Yahiris Enc. | 24-1045
+Sergio Lugo (24-0951) | Aarón Beltre (24-1033) | Yahiris Enc. (24-1045)
 
 ## Arquitectura
 
