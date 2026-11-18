@@ -1,5 +1,4 @@
 // TechSolutions SRL - Portal empresarial académico
-// Requiere configurar config.js y ejecutar el SQL de supabase/schema.sql.
 const cfg = window.APP_CONFIG || {};
 const configured = cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY &&
   !cfg.SUPABASE_URL.includes("PEGA_AQUI") && !cfg.SUPABASE_ANON_KEY.includes("PEGA_AQUI");
